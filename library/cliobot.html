@@ -1,0 +1,28 @@
+<div class="cliobot">
+    
+    <button id="toggle-button" class="button-background" onclick="toggleChatbox();">
+        <img id="support-icon" src="./library/assets/chatbot-icon.png"/>
+    </button>
+
+    <div id="clio-chat-box" class="chat-box">
+        <div class="chat-box-header">
+          <span id="bot-title">cliobot.exe</span>
+          <button class="close-button" onclick="hideChatbox();">
+            <img id="close-icon" src="./library/assets/close-icon.png"/>
+          </button>
+        </div>
+        <div class="chat-box-body">
+          <div class="chat-face">
+            <img id="placeholder" src="./library/assets/clio_idle.gif"/>
+          </div>
+          <div class="chat-logs">
+          </div><!--chat-log -->
+        </div>
+        <div class="chat-input">      
+            <input type="text" id="chat-input-field" placeholder="Send a message..."/>
+            <button class="chat-submit">
+                <img id="submit-icon" src="./library/assets/paper-plane.png"/>
+            </button>
+        </div>
+    </div>
+</div>

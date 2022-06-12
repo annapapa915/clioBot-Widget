@@ -6,16 +6,26 @@ async function getMarkup() {
 
 function toggleChatbox() {
     var x = document.getElementById("clio-chat-box");
-    if (x.style.display === "block") {
-      x.style.display = "none";
+    
+    if (x.style.opacity === "1") {
+        x.classList.add("chatboxFadeOut");
+        setTimeout(function(){x.classList.remove("chatboxFadeOut");}, 300);
+        x.style.opacity = "0";
     } else {
-      x.style.display = "block";
+        x.classList.add("chatboxFadeIn");
+        setTimeout(function(){x.classList.remove("chatboxFadeIn");}, 300);
+        x.style.opacity = "1";
     }
+    
 } 
 
 function hideChatbox() {
     var x = document.getElementById("clio-chat-box");
-    x.style.display = "none";
+    x.style.opacity = "0";
+}
+
+function displayUserMessage(){
+    var t = document.getElementById("chat-input-field").value;
 }
 
 class Cliobot {

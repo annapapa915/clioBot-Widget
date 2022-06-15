@@ -37,7 +37,7 @@ async function sendMessage() {
   input.value = ""
   displayUserMsg(msg)
 
-  /*
+  
   const response = await fetch("http://localhost:5005/webhooks/rest/webhook", {
     method: "POST",
     body: JSON.stringify({
@@ -47,12 +47,6 @@ async function sendMessage() {
   });
   if (!response.ok) throw new Error(`Invalid status code ${response.status}`);
   const data = await response.json();
-  */
-
-  const data = {
-    sender: "test",
-    message: "hi"
-  }
 
   displayClioMsg(data.message)
 

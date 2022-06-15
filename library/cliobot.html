@@ -1,7 +1,7 @@
 <div class="cliobot">
   <template id="message">
-    <div class="message-background">
-      <span id="chat-message">hello there general kenobi</span>
+    <div>
+      <span></span>
     </div>
   </template>
   <button
@@ -23,13 +23,8 @@
       <div class="chat-face">
         <img id="placeholder" src="./library/assets/clio_idle.gif" />
       </div>
-      <div class="chat-logs">
-        <div class="message-background">
-          <span id="chat-message">hello there general kenobi</span>
-        </div>
-        <div class="message-background-2">
-          <span id="chat-message-2">hi</span>
-        </div>
+      <div class="chat-logs" id="conversation">
+        
       </div>
       <!--chat-log -->
     </div>
@@ -39,7 +34,7 @@
         id="chat-input-field"
         placeholder="Send a message..."
       />
-      <button class="chat-submit" onclick="getInput();">
+      <button class="chat-submit" onclick="sendMessage();" id="send-btn">
         <img id="submit-icon" src="./library/assets/paper-plane.png" />
       </button>
     </div>

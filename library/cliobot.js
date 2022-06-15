@@ -4,7 +4,40 @@ async function getMarkup() {
   return await markup.text();
 }
 
-async function sendMessage(msg) {
+function displayUserMsg(msg) {
+  const conversationLog = document.getElementById("conversation")
+  if (conversationLog == null )
+    throw new Error("Convesation log not found")
+    
+  const template = document.getElementsByTagName("template")[0];
+  const msgBubble = template.content.cloneNode(true);
+  msgBubble.querySelector("div").classList.add("user-message")
+  const textNode = document.createTextNode(msg)
+  msgBubble.querySelector("span").appendChild(textNode)
+  conversationLog.appendChild(msgBubble)
+}
+
+function displayClioMsg(msg) {
+  const conversationLog = document.getElementById("conversation")
+  if (conversationLog == null )
+    throw new Error("Convesation log not found")
+    
+  const template = document.getElementsByTagName("template")[0];
+  const msgBubble = template.content.cloneNode(true);
+  msgBubble.querySelector("div").classList.add("clio-message")
+  const textNode = document.createTextNode(msg)
+  msgBubble.querySelector("span").appendChild(textNode)
+  conversationLog.appendChild(msgBubble)
+}
+
+async function sendMessage() {
+  var input = document.getElementById("chat-input-field");
+  const msg = input.value;
+  if(msg === "") return
+  input.value = ""
+  displayUserMsg(msg)
+
+  /*
   const response = await fetch("http://localhost:5005/webhooks/rest/webhook", {
     method: "POST",
     body: JSON.stringify({
@@ -14,6 +47,14 @@ async function sendMessage(msg) {
   });
   if (!response.ok) throw new Error(`Invalid status code ${response.status}`);
   const data = await response.json();
+  */
+
+  const data = {
+    sender: "test",
+    message: "hi"
+  }
+
+  displayClioMsg(data.message)
 
   // change idle to talking animation
   var x = document.getElementById("placeholder");
@@ -23,11 +64,6 @@ async function sendMessage(msg) {
   }, 2000);
 
   console.log(data);
-}
-
-function getInput() {
-  var input = document.getElementById("chat-input-field");
-  sendMessage(input.value);
 }
 
 function toggleChatbox() {
@@ -55,7 +91,6 @@ function hideChatbox() {
 
 class Cliobot {
   constructor() {
-    console.log("I run");
     const body = document.querySelector("body");
     if (null) throw new Error("Body not found");
 
@@ -64,6 +99,10 @@ class Cliobot {
         var container = document.createElement("div");
         container.innerHTML = markup;
         body.appendChild(container);
+        var input = document.getElementById("chat-input-field");
+        document.addEventListener("keypress", (e) => {
+          if(e.key == "Enter" && document.activeElement.id == input.id) sendMessage()
+        })
       })
       .catch((err) => console.error(err));
   }

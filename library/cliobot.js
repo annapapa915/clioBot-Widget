@@ -5,39 +5,36 @@ async function getMarkup() {
 }
 
 function displayUserMsg(msg) {
-  const conversationLog = document.getElementById("conversation")
-  if (conversationLog == null )
-    throw new Error("Convesation log not found")
-    
+  const conversationLog = document.getElementById("conversation");
+  if (conversationLog == null) throw new Error("Convesation log not found");
+
   const template = document.getElementsByTagName("template")[0];
   const msgBubble = template.content.cloneNode(true);
-  msgBubble.querySelector("div").classList.add("user-message")
-  const textNode = document.createTextNode(msg)
-  msgBubble.querySelector("span").appendChild(textNode)
-  conversationLog.appendChild(msgBubble)
+  msgBubble.querySelector("div").classList.add("user-message");
+  const textNode = document.createTextNode(msg);
+  msgBubble.querySelector("span").appendChild(textNode);
+  conversationLog.appendChild(msgBubble);
 }
 
 function displayClioMsg(msg) {
-  const conversationLog = document.getElementById("conversation")
-  if (conversationLog == null )
-    throw new Error("Convesation log not found")
-    
+  const conversationLog = document.getElementById("conversation");
+  if (conversationLog == null) throw new Error("Convesation log not found");
+
   const template = document.getElementsByTagName("template")[0];
   const msgBubble = template.content.cloneNode(true);
-  msgBubble.querySelector("div").classList.add("clio-message")
-  const textNode = document.createTextNode(msg)
-  msgBubble.querySelector("span").appendChild(textNode)
-  conversationLog.appendChild(msgBubble)
+  msgBubble.querySelector("div").classList.add("clio-message");
+  const textNode = document.createTextNode(msg);
+  msgBubble.querySelector("span").appendChild(textNode);
+  conversationLog.appendChild(msgBubble);
 }
 
 async function sendMessage() {
   var input = document.getElementById("chat-input-field");
   const msg = input.value;
-  if(msg === "") return
-  input.value = ""
-  displayUserMsg(msg)
+  if (msg === "") return;
+  input.value = "";
+  displayUserMsg(msg);
 
-  
   const response = await fetch("http://localhost:5005/webhooks/rest/webhook", {
     method: "POST",
     body: JSON.stringify({
@@ -48,7 +45,7 @@ async function sendMessage() {
   if (!response.ok) throw new Error(`Invalid status code ${response.status}`);
   const data = await response.json();
 
-  displayClioMsg(data.message)
+  displayClioMsg(data[0].text);
 
   // change idle to talking animation
   var x = document.getElementById("placeholder");
@@ -95,8 +92,9 @@ class Cliobot {
         body.appendChild(container);
         var input = document.getElementById("chat-input-field");
         document.addEventListener("keypress", (e) => {
-          if(e.key == "Enter" && document.activeElement.id == input.id) sendMessage()
-        })
+          if (e.key == "Enter" && document.activeElement.id == input.id)
+            sendMessage();
+        });
       })
       .catch((err) => console.error(err));
   }

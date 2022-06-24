@@ -71,6 +71,12 @@
     border-radius: 9px;
 }
 
+@media only screen and (max-width: 400px) {
+    .chat-box {
+        right: 1;
+    }
+}
+
 .chatboxFadeIn{
     animation: fadeIn 0.3s linear forwards;
 }
@@ -140,7 +146,7 @@
     padding: 8px;
     align-self: flex-start;
     max-width: 60%;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.8rem;
 }
 
 .clio-message span{
@@ -155,7 +161,7 @@
     padding: 8px;
     align-self: flex-end;
     max-width: 60%;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.8rem;
 }
 
 .user-message span {

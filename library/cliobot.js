@@ -1,3 +1,5 @@
+let first = true;
+
 async function getMarkup() {
   const markup = await fetch("library/cliobot.html");
   if (!markup.ok) throw new Error(`Invalid status code ${markup.status}`);
@@ -28,24 +30,44 @@ function displayClioMsg(msg) {
   conversationLog.appendChild(msgBubble);
 }
 
+async function sendFormalGreet() {
+  const response = await fetch("http://localhost:5005/webhooks/rest/webhook", {
+    method: "POST",
+    body: JSON.stringify({
+      sender: "test_user",
+      message: "pGLdQUM2DV",
+    }),
+  });
+
+  if (!response.ok) throw new Error(`Invalid status code ${response.status}`);
+  const data = await response.json();
+
+  displayClioMsg(data[0].text);
+}
+
 async function sendMessage() {
+  var chatlog = document.getElementById("conversation");
   var input = document.getElementById("chat-input-field");
-  const msg = input.value;
+  let msg = input.value;
   if (msg === "") return;
   input.value = "";
+
   displayUserMsg(msg);
 
   const response = await fetch("http://localhost:5005/webhooks/rest/webhook", {
     method: "POST",
     body: JSON.stringify({
       sender: "test_user",
-      message: msg,
+      message: msg.normalize("NFD").replace(/\p{Diacritic}/gu, ""),
     }),
   });
+
   if (!response.ok) throw new Error(`Invalid status code ${response.status}`);
   const data = await response.json();
 
   displayClioMsg(data[0].text);
+
+  chatlog.scrollTop = chatlog.scrollHeight;
 
   // change idle to talking animation
   var x = document.getElementById("placeholder");
@@ -72,6 +94,11 @@ function toggleChatbox() {
       x.classList.remove("chatboxFadeIn");
     }, 300);
     x.style.opacity = "1";
+  }
+
+  if (first) {
+    first = false;
+    sendFormalGreet();
   }
 }
 

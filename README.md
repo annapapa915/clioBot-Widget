@@ -3,4 +3,4 @@ A javascript library for clioBot, that includes a fully animated widget for the 
 
 To avoid CORS errors during localhosting, run the following command for chrome:
 
-```chrome --disable-web-security --disable-gpu --user-data-dir=~/chromeTemp```
+```chrome --disable-web-security --disable-gpu --disable-features=IsolateOrigins,site-per-process --user-data-dir="C://ChromeDev" --disable-features=IsolateOrigins,site-per-process```

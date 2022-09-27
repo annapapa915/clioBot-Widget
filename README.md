@@ -1,4 +1,5 @@
 # clioBot-Widget
+![alt text](https://github.com/annapapa915/clioBot-Widget/blob/main/clliobot_showcase.gif)
 A javascript library for clioBot, that includes a fully animated widget for the chatbot. It can easily be included in a preexisting site via importing.
 
 To avoid CORS errors during localhosting, run the following command for chrome:
